@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body {
+   margin: 0;
+   background-color: black;
+   color: white;
+   padding: 10px;
+  }
+
+  .main {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .row1, .row3, .row4 {
+    background-color: #8886;
+    border-radius: 10px;
+    padding-bottom: 10px;
+    display: grid;
+    grid-auto-flow: dense;
+  }
+
+  .row1 {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 26px 55px 20px;
+    align-items: center;
+  }
+
+  .row1 > div:not(:first-child) {
+    margin: 10px;
+  }
+
+  .row1 > div:nth-child(1) {
+    grid-column: 1 / span 3;
+    color: red;
+    text-align: center;
+    background-color: #8887;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .row1 > div:nth-child(1)::before {
+    content: '';
+    background-image: url(./figures/title.png);
+    background-repeat: no-repeat;
+    background-size : contain;
+    background-position: center;
+    display: inline-block;
+    width: -webkit-fill-available;
+    height:20px;
+  }
+
+  .row1 > div:nth-child(2) {
+    text-align: left;
+  }
+
+  .row1 > div:nth-child(3) {
+    text-align: center;
+    font-size: 25px;
+  }
+
+  .row1 > div:nth-child(5) {
+    text-align: left;
+    font-size: 12px;
+  }
+
+  .row1 > div:nth-child(6) {
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .row1 > div:nth-child(7) {
+    text-align: right;
+    font-size: 12px;
+  }
+
+  .row2 {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    justify-items: center;
+    text-align: center;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+  }
+
+  .centerCont {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .animation {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .animation >* {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  .animation .left {
+    left: 0;
+  }
+
+  .animation .right {
+    right: 0;
+  }
+
+  .animation >* >div {
+    width: 120px;
+    height: 120px;
+    border-radius: 100px;
+    position: absolute;
+    bottom: 25%;
+  }
+
+  .animation .leftCircle {
+    left: 25%;
+    box-shadow: -3px 0px 8px -6px white;
+  }
+
+  .animation .rightCircle {
+    right: 25%;
+    box-shadow: 3px 0px 8px -6px white;
+  }
+
+  svg {
+    width: 50%;
+    height: 100%;
+  }
+
+  svg.leftAnime {
+    position: absolute;
+    left: -18px;
+  }
+
+  svg.rightAnime {
+    position: absolute;
+    right: -18px;
+  }
+
+  .svgRight path::after, .svgLeft path::after {
+    position: absolute;
+    content: '';
+    background-image: radial-gradient(circle at center, red 10%, blue 100%)
+  }
+
+  .centerCont > div:nth-child(1) {
+    font-size: 25px;
+    margin-bottom: -5px;
+  }
+
+  .centerCont > div:nth-child(2) {
+    font-size: 60px;
+    font-weight: bold;
+  }
+
+  .centerCont > div:nth-child(3) {
+    font-size: 15px;
+  }
+
+  .centerCont > div:nth-child(4) {
+    font-size: 18px;
+    color: #ff002d;
+  }
+
+  .row3 {
+    display: flex;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+  }
+
+  .row3 > div {
+    flex-grow: 1;
+    display: grid;
+    grid-template: 1fr 1fr / 2fr 1fr;
+    align-items: center;
+    text-align: left;
+    padding: 0 30px;
+  }
+
+  .row3 > div > div:nth-child(3) {
+    color: grey;
+    font-size: 15px;
+  }
+
+  .row3 > div > div:nth-child(3), .row3 > div > div:nth-child(4) {
+    padding-top: 8px;
+  }
+
+  .row4 {
+    grid-template-rows: 1fr;
+  }
+
+  .row4 .goodsTitle, .row4 .goodDetail >* {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr) 25px;
+    column-gap: 10px;
+    text-align: center;
+    align-items: center;
+    padding: 10px 20px;
+  }
+
+  .row4 .goodDetail >*:nth-child(odd) {
+    background-color: #9993;
+  }
+
+  .row4 .goodsTitle >*:nth-child(1) , .row4 .goodDetail >* > .retailDesc:nth-child(1) {
+    grid-column-end: span 2;
+    text-align: left;
+  }
+
+  .retailDesc {
+    display: flex;
+    height: 55px;
+    gap: 10px;
+  }
+
+  .retailDesc > span:nth-child(1) {
+    width: 100px;
+  }
+
+  .retailDesc > span:nth-child(2) {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .sortTag {
+    display: inline-block;
+    width: 5px;
+    font-size: 10px;
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+
+  .sortTag * {
+    display: inline-block;
+  }
+</style>
+<body>
+<section class="main">
+  <div class="row1">
+    <div></div>
+    <div>用户名</div>
+    <div>就在今晚新品首穿!</div>
+    <div></div>
+    <div>开播时间：2022-04-18 19:17:21</div>
+    <div>直播时长： 3小时48分钟</div>
+    <div>数据统计时间: 2022-04-18 23:06:06 (30秒自动更新)</div>
+  </div>
+  <div class="row2">
+    <div>
+      <p>在线人数</p>
+      <p>121人</p>
+    </div>
+    <div class="centerCont">
+      <div>直播成交金额</div>
+      <div>9,096</div>
+      <div>非粉丝成交金额占比28.5%</div>
+      <div>点击查看4月重磅功能[下播复盘]上线预告</div>
+    </div>
+    <div>
+      <p>活跃度</p>
+      <p>40.50%</p>
+    </div>
+    <section class="animation">
+      <div class="left">
+        <div class="leftCircle">
+          <svg class="leftAnime">
+            <defs>
+              <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#f80019; stop-opacity:1"/>
+                <stop offset="100%" style="stop-color:#f9088d; stop-opacity:0.1"/>
+              </linearGradient>
+              <radialGradient id="gradRadial" cx="50%" cy="50%" r="100%" >
+                <stop offset="0" style="stop-color:rgba(252, 0, 0, 0.1);stop-opacity:1" />
+                <stop offset="40%" style="stop-color:rgba(252, 0, 0, 0.1);stop-opacity:0" />
+              </radialGradient>
+            </defs>
+            <g class="svgLeft">
+              <path fill="none" stroke="url(#grad)" stroke-width="5"/>
+              <circle fill="url(#gradRadial)" stroke="none"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="right">
+        <div class="rightCircle">
+          <svg class="rightAnime">
+            <defs>
+              <linearGradient id="gradRight" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#f9088d; stop-opacity:0.1"/>
+                <stop offset="100%" style="stop-color:#f80019; stop-opacity:1"/>
+              </linearGradient>
+            </defs>
+            <g class="svgRight">
+              <path fill="none" stroke="url(#gradRight)" stroke-width="5"/>
+              <circle fill="url(#gradRadial)" stroke="none"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="row3">
+    <div class="watch">
+      <div>观看时长</div>
+      <div>65</div>
+      <div>非粉丝观看时长(秒)</div>
+      <div>28</div>
+    </div>
+    <div class="click">
+      <div>商品点击率</div>
+      <div>26.4%</div>
+      <div>非粉丝商品点击率</div>
+      <div>13.2%</div>
+    </div>
+    <div class="deal">
+      <div>成交转化率</div>
+      <div>0.8%</div>
+      <div>非粉丝成交转化率</div>
+      <div>1.1%</div>
+    </div>
+  </div>
+  <div class="row4">
+    <div class="goodsTitle">
+      <span class="details">商品明细</span>
+      <span class="liveAudience">在线人数</span>
+      <span class="exposed">曝光人数</span>
+      <span class="clickTimes">点击次数</span>
+      <span class="addToCart">加购人数</span>
+      <span class="dealCount">成交件数</span>
+      <span class="saleAmount">成交金额</span>
+    </div>
+    <div class="goodDetail">
+
+    </div>
+  </div>
+</section>
+</body>
+<script>
+  var totalData = {
+    startTime: 0,
+    durationTime: 0,
+    dataRefreshTime: 0,
+    liveAudience: 121,
+    acitve: 0.405,
+    saleAmout: 9096,
+    saleAmoutNoNonfansRate: 0.285,
+    watchTimePerPerson: 65,
+    watchTimePerPersonNonfans: 28,
+    commodityClick: 0.264,
+    commodityClickNonfans: 0.132,
+    dealTransitionRate: 0.008,
+    dealTransitionRateNonfans: 0.0011,
+  }
+  var ogRetailData = [
+    {
+      commodityDecription: { id: 112, picURL: 'figures/112.png', title: '梅子熟了中式复古旗袍改良碎花裙子女夏装什么什么什么什么什么' },
+      liveAudience: 18,
+      exposed: 9026,
+      clickTimes: 1987,
+      addToCart: 54,
+      dealCount: 17,
+      saleAmount: 3073.6
+    },
+    {
+      commodityDecription: { id: 111, picURL: 'figures/111.png', title: '梅子熟了吊带长裙仙女荷叶边印花雪纺裙子什么什么什么什么什么' },
+      liveAudience: 18,
+      exposed: 7906,
+      clickTimes: 1474,
+      addToCart: 36,
+      dealCount: 5,
+      saleAmount: 1155
+    },
+    {
+      commodityDecription: { id: 110, picURL: 'figures/110.png', title: '梅子熟了法式碎花连衣裙圆领长袖长裙高什么什么什么什么什么什么' },
+      liveAudience: 18,
+      exposed: 7305,
+      clickTimes: 1287,
+      addToCart: 23,
+      dealCount: 3,
+      saleAmount: 627
+    },
+    {
+      commodityDecription: { id: 57, picURL: 'figures/57.png', title: '梅子熟了法式温柔碎花裙荷叶V领高腰长袖连衣裙什么什么什么什么什么' },
+      liveAudience: 13,
+      exposed: 671,
+      clickTimes: 54,
+      addToCart: 5,
+      dealCount: 3,
+      saleAmount: 582
+    },
+    {
+      commodityDecription: { id: 64, picURL: 'figures/64.png', title: '梅子熟了+清新绿H版型气质西装反驳领垫肩什么什么什么什么什么什么' },
+      liveAudience: 13,
+      exposed: 723,
+      clickTimes: 48,
+      addToCart: 1,
+      dealCount: 2,
+      saleAmount: 488
+    },
+  ]
+  var retailData = ogRetailData
+  var sortOrderASC = {
+    // 排序状态： 未定null 升序true 降序false
+    'liveAudience': null,
+    'exposed': null,
+    'clickTimes': null,
+    'addToCart': null,
+    'dealCount': null,
+    'saleAmount': null
+  }
+
+  createRetailDiv()
+  addEvents()
+
+  function createRetailDiv() {
+    let wrapper = document.querySelector('.goodDetail')
+    wrapper.innerHTML = ''
+    for (let retail of retailData) {
+      let div = document.createElement('div')
+      div.classList += 'item'
+      div.innerHTML = `
+      <div class="retailDesc">
+        <span><img src=${retail.commodityDecription.picURL}></span>
+        <span>${retail.commodityDecription.title}</span>
+      </div>
+      <span>${retail.liveAudience}</span>
+      <span>${retail.exposed}</span>
+      <span>${retail.clickTimes}</span>
+      <span>${retail.addToCart}</span>
+      <span>${retail.dealCount}</span>
+      <span>${retail.saleAmount}</span>
+      `
+      wrapper.appendChild(div)
+    }
+  }
+  function sortRetailData(key) {
+    // 如果已经是升序了 就降序
+    if (sortOrderASC[key]) {
+      sortOrderASC[key] = false
+      retailData = retailData.sort((entry1, entry2) => {
+      return entry2[key] - entry1[key]
+    })
+    } else {
+      sortOrderASC[key] = true
+      retailData = retailData.sort((entry1, entry2) => {
+        return entry1[key] - entry2[key]
+      })
+    }
+    // 将其他sort都改回null
+    for (let k in sortOrderASC) {
+      if (k !== key) {
+        sortOrderASC[k] = null
+      }
+    }
+  }
+  function addEvents() {
+    document.querySelector('.liveAudience').addEventListener('click', () => {
+      sortRetailData('liveAudience')
+      createRetailDiv()
+    })
+    document.querySelector('.exposed').addEventListener('click', () => {
+      sortRetailData('exposed')
+      createRetailDiv()
+    })
+    document.querySelector('.clickTimes').addEventListener('click', () => {
+      sortRetailData('clickTimes')
+      createRetailDiv()
+    })
+    document.querySelector('.addToCart').addEventListener('click', () => {
+      sortRetailData('addToCart')
+      createRetailDiv()
+    })
+    document.querySelector('.dealCount').addEventListener('click', () => {
+      sortRetailData('dealCount')
+      createRetailDiv()
+    })
+    document.querySelector('.saleAmount').addEventListener('click', () => {
+      sortRetailData('saleAmount')
+      createRetailDiv()
+    })
+  }
+  function createSortTag() {
+    let gt = document.querySelector('.goodsTitle')
+    let titles = gt.children
+    for (let title of titles) {
+      if (title.className !== 'details') {
+        let sortTag = document.createElement('span')
+        sortTag.className = 'sortTag'
+        sortTag.innerHTML = '<span>▲</span><span>▼</span>'
+        title.addEventListener('click',changeSortTagState)
+        title.style.cursor = 'pointer'
+        title.append(sortTag)
+      }
+    }
+  }
+  createSortTag()
+  function changeSortTagState(event) {
+    // 元素全部恢复成null状态
+    let tagsWrappers = document.querySelectorAll('.sortTag')
+    tagsWrappers.forEach(wrapper => {
+      let tags = wrapper.children
+      for (let tag of tags) {
+        tag.removeAttribute('style')
+      }
+    })
+    // 拿到tag父元素的className
+    let title = event.target
+    let ascTag = title.children[0].children[0]
+    let DescTag = title.children[0].children[1]
+    let key = title.className
+    if (sortOrderASC[key]) {
+      ascTag.style.color = 'red'
+      DescTag.style.color = 'white'
+    } else if (sortOrderASC[key] === false) {
+      ascTag.style.color = 'white'
+      DescTag.style.color = 'red'
+    } else {
+      ascTag.style.color = 'white'
+      DescTag.style.color = 'white'
+    }
+  }
+
+
+  var degree = 0
+  var path = document.querySelector('path')
+  var svgLeft = document.querySelector('.svgLeft')
+  var svgRight = document.querySelector('.svgRight')
+
+  function rotate(time) {
+    degree++
+    radLeft = degree % 360 * 3
+    radRight = degree % 360 * 3
+    svgLeft.style.transform = `rotate(${radLeft}deg)`
+    svgRight.style.transform = `rotate(${-radRight}deg)`
+    requestAnimationFrame(rotate)
+  }
+
+  requestAnimationFrame(rotate)
+
+  //旋转元素的坐标
+  let pathLeft = document.querySelector('.svgLeft path')
+  let pathRight = document.querySelector('.svgRight path')
+  let gLeft =  document.querySelector('.svgLeft')
+  let gRight =  document.querySelector('.svgRight')
+  let radius = document.querySelector('.leftCircle').clientWidth / 2
+  let rightCircle = document.querySelector('.rightCircle')
+  let leftBGI = document.querySelector('.svgLeft circle')
+  let rightBGI = document.querySelector('.svgRight circle')
+  let coords = {
+    r: radius,
+    rad: 60 / 180 * Math.PI,
+    sy: radius * 2,
+    offsetXRIght: -5,
+    offsetXLeft: radius + 5,
+  }
+
+  let LeftEndCoords = [coords.offsetXLeft-coords.r*Math.sin(coords.rad), coords.r+coords.r*Math.cos(coords.rad)]
+
+  let rightEndCoords = [coords.offsetXRIght+coords.r*Math.sin(coords.rad), coords.r+coords.r*Math.cos(coords.rad)]
+
+  gLeft.setAttribute('style', `transform-origin: ${coords.offsetXLeft}px ${coords.r}px`)
+  gRight.setAttribute('style', `transform-origin: ${coords.offsetXRIght}px ${coords.r}px`)
+
+  pathLeft.setAttribute('d',`
+  M ${coords.offsetXLeft} ${coords.sy}
+  A ${coords.r} ${coords.r} 0 0 1 ${LeftEndCoords[0]} ${LeftEndCoords[1]}`)
+
+  pathRight.setAttribute('d',`
+  M ${coords.offsetXRIght} ${coords.sy}
+  A ${coords.r} ${coords.r} 0 0 0 ${rightEndCoords[0]} ${rightEndCoords[1]}
+  `)
+
+  rightBGI.setAttribute('style', 'width: 50%')
+  rightBGI.setAttribute('cx', `${(coords.offsetXRIght + rightEndCoords[0]) / 2}`)
+  rightBGI.setAttribute('cy', `${(coords.sy + rightEndCoords[1]) / 2}`)
+  rightBGI.setAttribute('r', `${(coords.r)}`)
+
+  leftBGI.setAttribute('style', 'width: 50%')
+  leftBGI.setAttribute('cx', `${(coords.offsetXRIght + rightEndCoords[0]) / 2}`)
+  leftBGI.setAttribute('cy', `${(coords.sy + rightEndCoords[1]) / 2}`)
+  leftBGI.setAttribute('r', `${(coords.r)}`)
+</script>
+</html>
