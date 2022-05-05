@@ -3,10 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, Maximum-scale=1">
+  <title>淘宝直播</title>
+
 </head>
 <style>
+
+  @media all and (max-width: 800px) {
+    .main {
+      min-width: 800px
+    }
+  }
+
   body {
    margin: 0;
    background-color: black;
@@ -552,8 +560,8 @@
 
   function rotate(time) {
     degree++
-    radLeft = degree % 360 * 3
-    radRight = degree % 360 * 3
+    radLeft = degree % 360 * 5
+    radRight = degree % 360 * 5
     svgLeft.style.transform = `rotate(${radLeft}deg)`
     svgRight.style.transform = `rotate(${-radRight}deg)`
     requestAnimationFrame(rotate)
@@ -572,7 +580,7 @@
   let rightBGI = document.querySelector('.svgRight circle')
   let coords = {
     r: radius,
-    rad: 60 / 180 * Math.PI,
+    rad: 80 / 180 * Math.PI,
     sy: radius * 2,
     offsetXRIght: -5,
     offsetXLeft: radius + 5,
